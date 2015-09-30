@@ -1,0 +1,11 @@
+CREATE OR REPLACE FUNCTION "public"."DO_STR_NULL"(text, text)
+  RETURNS "pg_catalog"."text" AS $BODY$
+SELECT CASE
+WHEN $1='' OR $1 IS NULL THEN $2
+ELSE $1
+END;
+$BODY$
+  LANGUAGE 'sql' VOLATILE COST 100
+;
+
+ALTER FUNCTION "public"."DO_STR_NULL"(text, text) OWNER TO "postgres";
