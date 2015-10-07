@@ -19,6 +19,15 @@ $this->title = 'MyList';
 <script type="text/javascript">
 $(function() {
 	/*
+	$.getJSON(
+			//"http://115.28.76.20/mylist/web/index.php?r=my/runaction",
+			"<?php echo Yii::$app->urlManager->createUrl('my/runaction'); ?>",
+			 {data:"CAction_Column",paras:{oper:"^",data:{v:"1",data:{data:{1:{name:"行前事项",detail:[{id:"-80",name:"asdf",custom:"1"}]}},v:"40"}},cuid:"wwwww"}},
+            function(data){
+				alert(Serialize(data));
+            }
+        );
+	
 	SafeAjax({
 		type: "GET",
 		url: "<?php echo Yii::$app->urlManager->createUrl('my/data'); ?>",

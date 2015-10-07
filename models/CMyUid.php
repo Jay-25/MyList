@@ -4,10 +4,10 @@ namespace app\models;
 
 class CMyUid {
     public static function get( $cuid ){
-        if($cuid==0) return -1;
+        if(empty($cuid)) return -1;
         
         $key = __METHOD__ ;
-        $data = CUserCache::get( $key );
+        $data = CSystemCache::get( $key );
         if( !is_null( $data ) ) return $data;
         
         try{
@@ -18,7 +18,7 @@ class CMyUid {
             
             if( count( $data ) == 1 && isset( $data[0]['id'] ) ){
                 $data = $data[0]['id'];
-                CUserCache::set( $key, $data );
+                CSystemCache::set( $key, $data, 24*60*60 );
                 return $data;
             }
         }

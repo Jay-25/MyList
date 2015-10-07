@@ -23,8 +23,6 @@ class CAction_Item extends CAction {
     			$command->bindParam( ':godate', $paras['godate'], \PDO::PARAM_STR );
     			$command->bindParam( ':backdate', $paras['backdate'], \PDO::PARAM_STR );
     			$data = $command->queryAll();
-    			 
-    			CUserCache::delete('app\\models\\CData_Item::getex');
     			
     			if(count($data)==1 && isset($data[0]['result'])){
     				return $data[0]['result'];
@@ -43,8 +41,6 @@ class CAction_Item extends CAction {
         		$command->bindParam( ':selecteds', $paras['selecteds'], \PDO::PARAM_STR );
         		$data = $command->queryAll();
         		
-        		CUserCache::delete('app\\models\\CData_Item::getex');
-        		
         	    if(count($data)==1 && isset($data[0]['result'])){
                     return $data[0]['result'];
                 }
@@ -57,8 +53,6 @@ class CAction_Item extends CAction {
     	        $command->bindParam( ':uid', $uid, \PDO::PARAM_INT );
     	        $command->bindParam( ':id', $paras['id'], \PDO::PARAM_INT );
     	        $data = $command->queryAll();
-    	        
-    	        CUserCache::delete('app\\models\\CData_Item::getex');
     	        
     	        if(count($data)==1 && isset($data[0]['result'])){
                     return $data[0]['result'];

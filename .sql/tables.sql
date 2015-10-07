@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90304
 File Encoding         : 65001
 
-Date: 2015-09-30 17:36:43
+Date: 2015-10-07 17:36:42
 */
 
 
@@ -83,9 +83,9 @@ CREATE TABLE "public"."tab_mylist_itemdetail" (
 WITH (OIDS=FALSE)
 
 ;
-COMMENT ON COLUMN "public"."tab_mylist_itemdetail"."id" IS '清单细则ID';
-COMMENT ON COLUMN "public"."tab_mylist_itemdetail"."iid" IS 'ITEM-ID';
-COMMENT ON COLUMN "public"."tab_mylist_itemdetail"."cid" IS 'COLUMN-ID';
+COMMENT ON COLUMN "public"."tab_mylist_itemdetail"."id" IS '清单细则ID(tab_mylist_columndetail.id)';
+COMMENT ON COLUMN "public"."tab_mylist_itemdetail"."iid" IS 'ITEM-ID(tab_mylist_item.id)';
+COMMENT ON COLUMN "public"."tab_mylist_itemdetail"."cid" IS 'COLUMN-ID(tab_mylist_column.id)';
 COMMENT ON COLUMN "public"."tab_mylist_itemdetail"."name" IS '清单细则项的名称';
 COMMENT ON COLUMN "public"."tab_mylist_itemdetail"."selected" IS '是否已选择';
 
@@ -134,6 +134,11 @@ ALTER TABLE "public"."tab_mylist_column" ADD PRIMARY KEY ("id");
 -- Indexes structure for table tab_mylist_columndetail
 -- ----------------------------
 CREATE INDEX "tab_mylist_columndetail_cid_custom_idx" ON "public"."tab_mylist_columndetail" USING btree (cid, custom_id);
+
+-- ----------------------------
+-- Uniques structure for table tab_mylist_columndetail
+-- ----------------------------
+ALTER TABLE "public"."tab_mylist_columndetail" ADD UNIQUE ("id", "custom_id");
 
 -- ----------------------------
 -- Primary Key structure for table tab_mylist_columndetail
