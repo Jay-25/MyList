@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90304
 File Encoding         : 65001
 
-Date: 2015-10-07 17:36:42
+Date: 2015-10-10 21:36:20
 */
 
 
@@ -44,6 +44,21 @@ WITH (OIDS=FALSE)
 ;
 
 -- ----------------------------
+-- Table structure for tab_mylist_columndetail_copy
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."tab_mylist_columndetail_copy";
+CREATE TABLE "public"."tab_mylist_columndetail_copy" (
+"id" int8 DEFAULT nextval('tab_mylist_columndetail_id_seq'::regclass) NOT NULL,
+"cid" int8 NOT NULL,
+"name" varchar(128) COLLATE "default" NOT NULL,
+"custom_id" int8 DEFAULT 0 NOT NULL,
+"sort" int4 DEFAULT 999
+)
+WITH (OIDS=FALSE)
+
+;
+
+-- ----------------------------
 -- Table structure for tab_mylist_item
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."tab_mylist_item";
@@ -55,7 +70,8 @@ CREATE TABLE "public"."tab_mylist_item" (
 "godate" timestamp(6),
 "backdate" timestamp(6),
 "timestamp" timestamp(6) DEFAULT now() NOT NULL,
-"valid" int2 DEFAULT 1 NOT NULL
+"valid" int2 DEFAULT 1 NOT NULL,
+"astemplate" varchar(64) COLLATE "default"
 )
 WITH (OIDS=FALSE)
 
@@ -68,6 +84,7 @@ COMMENT ON COLUMN "public"."tab_mylist_item"."godate" IS '出发时间';
 COMMENT ON COLUMN "public"."tab_mylist_item"."backdate" IS '返回时间';
 COMMENT ON COLUMN "public"."tab_mylist_item"."timestamp" IS '本清单的创建时间';
 COMMENT ON COLUMN "public"."tab_mylist_item"."valid" IS '清单是否被删除';
+COMMENT ON COLUMN "public"."tab_mylist_item"."astemplate" IS '是否作为模板（模板名称）';
 
 -- ----------------------------
 -- Table structure for tab_mylist_itemdetail
@@ -144,6 +161,21 @@ ALTER TABLE "public"."tab_mylist_columndetail" ADD UNIQUE ("id", "custom_id");
 -- Primary Key structure for table tab_mylist_columndetail
 -- ----------------------------
 ALTER TABLE "public"."tab_mylist_columndetail" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Indexes structure for table tab_mylist_columndetail_copy
+-- ----------------------------
+CREATE INDEX "tab_mylist_columndetail_cid_custom_idx_copy" ON "public"."tab_mylist_columndetail_copy" USING btree (cid, custom_id);
+
+-- ----------------------------
+-- Uniques structure for table tab_mylist_columndetail_copy
+-- ----------------------------
+ALTER TABLE "public"."tab_mylist_columndetail_copy" ADD UNIQUE ("id", "custom_id");
+
+-- ----------------------------
+-- Primary Key structure for table tab_mylist_columndetail_copy
+-- ----------------------------
+ALTER TABLE "public"."tab_mylist_columndetail_copy" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Indexes structure for table tab_mylist_item

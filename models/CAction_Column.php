@@ -77,9 +77,7 @@ class CAction_Column extends CAction {
     	    	return 0;
     	    }
     	}
-    	catch (\Exception $e){
-    		return $paras['data']['data'];
-    	}
+    	catch (\Exception $e){}
     	
     	return -1;
     }
