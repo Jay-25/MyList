@@ -12,7 +12,7 @@ class CData_Template extends CData {
                       LEFT JOIN tab_mylist_column c ON d.cid = c.id 
                       LEFT JOIN tab_mylist_columndetail cd ON d.id = cd.id
                       LEFT JOIN tab_mylist_userversion v ON uid = :uid
-                 WHERE i.id = d.iid AND valid=1 AND i.uid = :uid 
+                 WHERE i.id = d.iid AND valid=1 AND i.astemplate IS NOT NULL AND i.uid = :uid 
                  ORDER BY i.timestamp DESC, c.sort, cd.sort";
         $command = CDB::getConnection()->createCommand( $sql );
         $command->bindParam( ':uid', $uid, \PDO::PARAM_INT );
@@ -26,16 +26,16 @@ class CData_Template extends CData {
             $data['v'] = $result[0]['v'];
             
             for($i=0; $i<$rownum; $i++){
-                if($_iname != $result[$i]['iname']){
-                	$_iname = $result[$i]['iname'];
+                if($_iname != $result[$i]['astemplate']){
+                	$_iname = $result[$i]['astemplate'];
                 	$index = $result[$i]['iid'];
                     $data['data'][$index] = [
-				                    		 'name' => $result[$i]['astemplate'],
+				                    		 'name' => $_iname,
 				                    		 'detail' => [] ];
                 }
                 if($index>=0){
 	                //$data['data'][$index]['detail'][] = [ 'cid'=>$result[$i]['cid'], 'id'=>$result[$i]['id'], 'name'=>$result[$i]['name'] ];
-	                $data['data'][$index]['detail'][$result[$i]['id']] = ['cid'=>$result[$i]['cid'], 'name'=>$result[$i]['name']];
+	                $data['data'][$index]['detail'][$result[$i]['id']] = ['cid'=>$result[$i]['cid'], 'name'=>$result[$i]['name'], 'selected'=>0];
                 }
             }
         }

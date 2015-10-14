@@ -22,7 +22,7 @@ $(function() {
 	$.getJSON(
 			//"http://115.28.76.20/mylist/web/index.php?r=my/data",
 			"<?php echo Yii::$app->urlManager->createUrl('my/runaction'); ?>",
-			{"data":"CAction_Item","paras":{"oper":"+","id":"8","data":{"name":"4444","timestamp":"2015-10-11","detail":{"2":{"cid":1,"name":"机票/车票/船票","selected":1},"3":{"cid":1,"name":"预订酒店","selected":0},"57":{"cid":6,"name":"牙膏牙刷","selected":1},"60":{"cid":6,"name":"护肤/化妆用品","selected":0}}},"cuid":"wwwww"}},
+			{"data":"CAction_Template","paras":{"oper":"-","id":"8","cuid":"wwwww"}},
             function(data){
 				alert(Serialize(data));
             }
